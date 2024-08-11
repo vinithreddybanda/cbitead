@@ -41,6 +41,20 @@ router.post('/', async (req, res) => {
         res.status(400).send('Error: ' + err.message);
     }
 });
+router.delete('/:id', async (req, res) => {
+    try {
+        const alien = await Alien.findById(req.params.id);
+        if (alien == null) {
+            return res.status(404).json({ message: 'Cannot find alien' });
+        }
+
+        await alien.remove();
+        res.json({ message: 'Deleted Alien' });
+    } catch (err) {
+        res.status(500).send('Error: ' + err.message);
+    }
+});
+
 
 
 router.patch('/:id', async (req, res) => {
