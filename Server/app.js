@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const url = 'mongodb://localhost:27017/cbit';
+const url = 'mongodb://localhost:27020,localhost:27021,localhost:27022/cbit2?replicaSet=m101';
 
 const app = express();
 
@@ -17,9 +17,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const alienRouter = require('./Routes/aliens');
-app.use('/aliens', alienRouter);
+// Update the route to use the student routes instead of alien routes
+const studentRouter = require('./Routes/studentRoutes');
+app.use('/students', studentRouter);
 
 app.listen(9000, () => {
     console.log('server started..');
-})
+});
